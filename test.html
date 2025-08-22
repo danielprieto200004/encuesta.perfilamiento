@@ -215,7 +215,7 @@
 
                 try {
                     // 3. Enviamos las respuestas a la API de Python
-                    const response = await fetch('https://encuesta-perfilamiento-app.onrender.com/api/guardar-respuestas', {
+                    const response = await fetch('https://api-encuesta-uniminuto-v1-e5f2dva8eydqggcm.chilecentral-01.azurewebsites.net/api/guardar-respuestas', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ id_sesion: id_sesion, respuestas: respuestasParaEnviar })
@@ -271,4 +271,5 @@
     </script>
 </body>
 </html>
+
 }
