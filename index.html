@@ -55,9 +55,13 @@
             background: linear-gradient(135deg, #1E40AF, #3B82F6);
             transition: all 0.3s ease;
         }
-        .start-btn:hover {
+        .start-btn:hover:not(:disabled) {
             transform: scale(1.05);
             box-shadow: 0 10px 25px rgba(30, 64, 175, 0.3);
+        }
+        .start-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
         }
     </style>
 </head>
@@ -66,14 +70,7 @@
     <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div class="flex items-center space-x-4 floating-element">
-                <div class="relative">
-                    <svg class="h-10 w-10 md:h-12 md:w-12 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
-                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full pulse-animation"></div>
-                </div>
-                <div>
-                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">UNIMINUTO</h1>
-                    <p class="text-xs md:text-sm text-gray-600 font-medium">Observatorio Experimental</p>
-                </div>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_UNIMINUTO.svg/2560px-Logo_UNIMINUTO.svg.png" alt="Logo UNIMINUTO" class="h-12 w-auto">
             </div>
             <div class="text-center md:text-right">
                 <span class="font-bold text-base md:text-lg gradient-text">Test de Perfilamiento</span>
@@ -92,11 +89,20 @@
             <form id="registroForm" class="max-w-md mx-auto">
                 <div class="mb-4">
                     <input type="text" id="studentId" required class="glass-effect text-base md:text-lg shadow-inner appearance-none border border-gray-200 rounded-xl w-full py-3 px-4 md:py-4 md:px-5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="ID Estudiante (Ej: 000123456)">
+                    <p class="text-xs text-gray-600 text-left mt-2 px-1">Si no sabes tu ID, revisa tu carnet físico o u-wallet.</p>
                 </div>
-                <div class="mb-6 md:mb-8">
+                <div class="mb-6">
                     <input type="email" id="studentEmail" required class="glass-effect text-base md:text-lg shadow-inner appearance-none border border-gray-200 rounded-xl w-full py-3 px-4 md:py-4 md:px-5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Correo Institucional">
                 </div>
-                <button type="submit" class="start-btn text-white font-bold py-4 px-10 md:py-5 md:px-12 rounded-2xl text-xl md:text-2xl w-full">
+                
+                <div class="mb-6 md:mb-8 text-left flex items-start space-x-3">
+                    <input type="checkbox" id="habeasDataCheck" class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
+                    <label for="habeasDataCheck" class="text-sm text-gray-700">
+                        Acepto la <a href="#" class="text-blue-600 hover:underline">política de tratamiento de datos personales</a> de UNIMINUTO para la realización de este test.
+                    </label>
+                </div>
+
+                <button type="submit" id="submitBtn" class="start-btn text-white font-bold py-4 px-10 md:py-5 md:px-12 rounded-2xl text-xl md:text-2xl w-full" disabled>
                     Iniciar Test
                 </button>
             </form>
@@ -104,11 +110,27 @@
     </main>
     
     <footer class="text-center py-8">
-        <div class="max-w-4xl mx-auto px-4"><p class="text-white text-sm mb-2">© 2025 UNIMINUTO. Todos los derechos reservados.</p><p class="text-blue-200 text-sm font-medium">Observatorio de Datos SYMBIOTIC</p></div>
+        <div class="max-w-4xl mx-auto px-4">
+            <p class="text-white text-sm mb-2">© 2025 UNIMINUTO. Todos los derechos reservados.</p>
+            <p class="text-blue-200 text-sm font-medium">SymbioTIC Observatorio Experimental de Datos</p>
+        </div>
     </footer>
 
     <script>
-        document.getElementById('registroForm').addEventListener('submit', async function(event) {
+        const registroForm = document.getElementById('registroForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const habeasDataCheck = document.getElementById('habeasDataCheck');
+
+        // Lógica para habilitar/deshabilitar el botón
+        habeasDataCheck.addEventListener('change', function() {
+            if (this.checked) {
+                submitBtn.disabled = false;
+            } else {
+                submitBtn.disabled = true;
+            }
+        });
+
+        registroForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             const studentData = {
                 codigo_institucional: document.getElementById('studentId').value,
@@ -141,5 +163,4 @@
     </script>
 
 </body>
-
 </html>
