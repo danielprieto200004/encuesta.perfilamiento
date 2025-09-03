@@ -11,10 +11,25 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* ===== ESTE ES EL NUEVO FONDO MÁS SUAVE ===== */
-            background: linear-gradient(135deg, #E0F2FE 0%, #BFDBFE 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 50%, #2563eb 75%, #1d4ed8 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none; z-index: -1;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
@@ -51,7 +66,7 @@
     <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div class="flex items-center space-x-4 floating-element">
-                <img src="logo.png" alt="Logo UNIMINUTO" class="h-28 w-auto">
+                <img src="logo.png" alt="Logo UNIMINUTO" class="h-26 w-auto">
             </div>
             <div class="text-center md:text-right">
                 <span class="font-bold text-base md:text-lg gradient-text">Test de Perfilamiento</span>
@@ -63,16 +78,10 @@
     <main class="container mx-auto p-4">
         <section class="text-center glass-effect p-6 md:p-12 rounded-2xl shadow-2xl my-8 md:my-16 floating-element">
             <h2 class="text-3xl md:text-5xl font-extrabold gradient-text mb-4">Bienvenido/a</h2>
-            <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
+            <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto mb-8 md:mb-10 leading-relaxed">
                 Estás a punto de iniciar una herramienta de autodescubrimiento. Por favor, ingresa tus datos para comenzar.
             </p>
             
-            <div class="max-w-3xl mx-auto border-t border-b border-gray-200 py-6 my-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">¡Tu perspectiva construye el futuro!</h3>
-                <p class="text-gray-600 mb-3 leading-relaxed">Te invitamos a ser parte activa del cambio. A través de esta encuesta, buscamos conocer a fondo a nuestros estudiantes para desarrollar proyectos e iniciativas que realmente conecten con tus aspiraciones.</p>
-                <p class="text-gray-600 leading-relaxed">Cada respuesta es un paso hacia una mejor experiencia para todos. Tus datos serán tratados con total confidencialidad. ¡Gracias por tu tiempo y compromiso!</p>
-            </div>
-
             <form id="registroForm" class="max-w-md mx-auto">
                 <div class="mb-4">
                     <input type="text" id="studentId" required class="glass-effect text-base md:text-lg shadow-inner appearance-none border border-gray-200 rounded-xl w-full py-3 px-4 md:py-4 md:px-5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="ID Estudiante (Ej: 000123456)">
@@ -98,8 +107,8 @@
     
     <footer class="text-center py-8">
         <div class="max-w-4xl mx-auto px-4">
-            <p class="text-blue-900 text-sm mb-2 opacity-80">© 2025 UNIMINUTO. Todos los derechos reservados.</p>
-            <p class="text-blue-800 text-sm font-medium opacity-90">SymbioTIC Observatorio Experimental de Datos</p>
+            <p class="text-white text-sm mb-2">© 2025 UNIMINUTO. Todos los derechos reservados.</p>
+            <p class="text-blue-200 text-sm font-medium">SymbioTIC Observatorio Experimental de Datos</p>
         </div>
     </footer>
 
@@ -108,6 +117,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const habeasDataCheck = document.getElementById('habeasDataCheck');
 
+        // Lógica para habilitar/deshabilitar el botón según el checkbox
         habeasDataCheck.addEventListener('change', function() {
             if (this.checked) {
                 submitBtn.disabled = false;
@@ -119,6 +129,7 @@
         registroForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             
+            // --- BLOQUE DE VALIDACIÓN DE CORREO ---
             const emailInput = document.getElementById('studentEmail');
             const email = emailInput.value.trim();
             const studentIdInput = document.getElementById('studentId');
@@ -131,6 +142,7 @@
             } else {
                 emailInput.classList.remove('border-red-500', 'ring-red-500');
             }
+            // --- FIN DEL BLOQUE DE VALIDACIÓN ---
 
             const studentData = {
                 codigo_institucional: studentIdInput.value,
@@ -162,6 +174,7 @@
 
 </body>
 </html>
+
 
 
 
