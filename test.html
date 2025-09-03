@@ -9,69 +9,98 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Inter', sans-serif; }
-        .progress-bar-fill { transition: width 0.6s ease-in-out; }
-        .question-container-transition { transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; }
-        .question-changing { opacity: 0; transform: scale(0.98); }
-        .option-btn.selected { background-color: #4f46e5; color: white; }
+        body { font-family: 'Inter', sans-serif; background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 50%, #2563eb 75%, #1d4ed8 100%); background-size: 400% 400%; animation: gradientShift 15s ease infinite; min-height: 100vh; position: relative; }
+        body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.2) 0%, transparent 50%); pointer-events: none; z-index: -1; }
+        @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
+        .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        #questionContainer { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
+        .question-card, .section-header { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .question-changing { opacity: 0; transform: scale(0.95); }
+        .option-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid rgba(59, 130, 246, 0.2); }
+        .option-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2); border-color: #3B82F6; }
+        .option-btn.selected { background: linear-gradient(135deg, #1E40AF, #3B82F6); color: white; border-color: #1E40AF; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(30, 64, 175, 0.3); }
+        .progress-bar-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); background: linear-gradient(90deg, #3B82F6, #1E40AF, #7C3AED); }
+        .floating-element { animation: float 6s ease-in-out infinite; }
+        @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
+        .gradient-text { background: linear-gradient(135deg, #1E40AF, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+        .submit-btn-ready { background: linear-gradient(135deg, #10B981, #059669); animation: readyPulse 2s infinite; }
+        @keyframes readyPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
     </style>
 </head>
-<body class="bg-slate-100 antialiased">
+<body class="text-gray-800">
 
-    <header class="bg-white shadow-sm sticky top-0 z-20">
-        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex justify-between items-center h-16">
-                <div class="flex-shrink-0">
-                    <img class="h-8 w-auto" src="logo.png" alt="Logo UNIMINUTO">
+    <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
+            <div class="flex items-center space-x-4 floating-element">
+                <div class="relative">
+                    <svg class="h-10 w-10 md:h-12 md:w-12 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
+                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full pulse-animation"></div>
                 </div>
-                <div class="text-right">
-                    <h2 class="text-sm font-bold text-slate-800">Test de Perfilamiento</h2>
-                    <p class="text-xs text-slate-500">Paso 2: Cuestionario</p>
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">UNIMINUTO</h1>
+                    <p class="text-xs md:text-sm text-gray-600 font-medium">Observatorio Experimental</p>
                 </div>
             </div>
-            <div class="w-full bg-slate-200 rounded-full h-2.5 mt-2">
-                <div id="progressBar" class="bg-indigo-600 h-2.5 rounded-full progress-bar-fill" style="width: 0%"></div>
+            <div class="text-center md:text-right">
+                <span class="font-bold text-base md:text-lg gradient-text">Test de Perfilamiento</span>
+                <p class="text-xs md:text-sm text-gray-600">Paso 2: Cuestionario</p>
             </div>
-            <div class="flex justify-between text-xs text-slate-500 mt-1">
-                <span id="progressText">0% completado</span>
-                <span id="currentQuestionNum" class="font-medium">Pregunta 1 / 60</span>
-            </div>
+        </div>
+        <div class="w-full bg-gray-200 rounded-full h-3 mt-4 md:mt-6 overflow-hidden">
+            <div id="progressBar" class="progress-bar-fill h-3 rounded-full" style="width: 0%"></div>
+        </div>
+        <div class="flex justify-between text-xs text-white mt-2 font-semibold">
+            <span>Inicio</span>
+            <span id="progressText">0% completado</span>
+            <span>Fin</span>
         </div>
     </header>
 
-    <main class="py-12 px-4 sm:px-6 lg:px-8">
-        <div id="questionContainer" class="w-full max-w-3xl mx-auto question-container-transition">
-            <div id="section-header" class="mb-6 text-center">
-                <h3 id="sectionTitle" class="text-2xl font-bold text-slate-900"></h3>
-                <p id="sectionDescription" class="text-slate-600 mt-1"></p>
-            </div>
-
-            <div class="bg-white rounded-2xl shadow-xl p-8">
-                <h4 id="questionText" class="text-xl font-semibold text-slate-800 mb-6 text-center min-h-[80px]"></h4>
-                <div class="space-y-4">
-                    <button id="optionA" type="button" class="option-btn w-full text-left p-4 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
-                        <span class="font-bold text-indigo-600 mr-2">A)</span>
-                        <span id="optionAText"></span>
-                    </button>
-                    <button id="optionB" type="button" class="option-btn w-full text-left p-4 border border-slate-300 rounded-lg hover:bg-slate-50 transition-colors">
-                        <span class="font-bold text-indigo-600 mr-2">B)</span>
-                        <span id="optionBText"></span>
-                    </button>
+    <main class="container mx-auto p-4 md:p-8">
+        <div id="questionContainer" class="max-w-4xl mx-auto" style="opacity: 0; transform: translateY(30px);">
+            <div class="section-header p-6 md:p-8 rounded-2xl shadow-xl mb-6 md:mb-8">
+                <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
+                    <div class="flex items-center space-x-4">
+                        <div id="sectionIcon" class="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0"></div>
+                        <div>
+                            <h3 id="sectionTitle" class="text-xl sm:text-2xl md:text-3xl font-bold gradient-text"></h3>
+                            <p id="sectionDescription" class="text-gray-600 mt-1 text-sm md:text-lg"></p>
+                        </div>
+                    </div>
+                    <div class="text-right">
+                        <div id="sectionCounter" class="px-4 py-2 rounded-xl">
+                            <span id="currentQuestionNum" class="text-xl md:text-2xl font-bold"></span>
+                            <span class="text-gray-600">/</span>
+                            <span id="totalQuestions" class="text-xl md:text-2xl font-bold">60</span>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <div id="finalSubmit" class="text-center mt-8 bg-white rounded-2xl shadow-xl p-8" style="display: none;">
-                <h3 class="text-2xl font-bold text-slate-900">¡Test Completado!</h3>
-                <p class="text-slate-600 my-4">Estás listo para ver tus resultados.</p>
-                <button id="submitBtn" type="button" class="w-full sm:w-auto inline-flex justify-center py-3 px-6 border border-transparent text-sm font-semibold rounded-lg text-white bg-green-600 hover:bg-green-700 transition-colors">
-                    ¡Descubre tu perfil!
-                </button>
+            <div id="questionCard" class="question-card p-6 md:p-10 rounded-2xl shadow-2xl mb-8 flex flex-col justify-center">
+                <h4 id="questionText" class="text-xl md:text-2xl font-bold text-gray-800 mb-8 text-center leading-relaxed"></h4>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
+                    <button id="optionA" type="button" class="option-btn p-4 md:p-6 rounded-xl flex items-center space-x-4"><div class="w-10 h-10 bg-blue-100 rounded-full flex-shrink-0 flex items-center justify-center"><span class="font-bold text-blue-600 text-xl">A</span></div><span id="optionAText" class="text-base md:text-lg text-left"></span></button>
+                    <button id="optionB" type="button" class="option-btn p-4 md:p-6 rounded-xl flex items-center space-x-4"><div class="w-10 h-10 bg-blue-100 rounded-full flex-shrink-0 flex items-center justify-center"><span class="font-bold text-blue-600 text-xl">B</span></div><span id="optionBText" class="text-base md:text-lg text-left"></span></button>
+                </div>
+            </div>
+
+            <div id="finalSubmit" class="text-center mt-12" style="display: none;">
+                <div class="glass-effect p-6 md:p-8 rounded-2xl shadow-2xl inline-block">
+                    <h3 class="text-2xl md:text-3xl font-bold gradient-text mb-4">¡Test Completado!</h3>
+                    <p class="text-gray-600 mb-6">Estás listo para ver tus resultados.</p>
+                    <button id="submitBtn" type="button" class="submit-btn-ready text-white font-bold py-4 px-10 md:py-5 md:px-12 rounded-2xl text-xl md:text-2xl">
+                        ¡Descubre tu perfil!
+                    </button>
+                </div>
             </div>
         </div>
     </main>
 
     <script>
-        // --- DATA STORE (igual que antes) ---
+        // --- DATA STORE ---
         const surveyData = {
             diagrams: [
                 { id: 'd1', questions: [ { q: 'A la hora de elegir tus materias electivas, ¿qué pesa más en tu decisión?', a: 'La que me enseñe una habilidad específica muy demandada en el mercado laboral.', b: 'La que despierte mi curiosidad y me permita explorar un tema nuevo.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Para ti, ¿qué significa que un profesor es "excelente"?', a: 'Que tiene experiencia en la industria y enfoca sus clases en las habilidades que las empresas necesitan.', b: 'Que inspira a pensar críticamente, fomenta el debate y se preocupa por el desarrollo personal.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué tipo de evaluación te parece más representativa de tu aprendizaje?', a: 'Una que me permita demostrar mi capacidad de investigar y proponer soluciones originales.', b: 'Una que mida mi conocimiento sobre los temas vistos en clase a través de preguntas claras.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué momento de una clase presencial consideras más valioso?', a: 'El debate espontáneo que surge y enriquece el tema desde múltiples perspectivas.', b: 'La explicación del profesor que se enfoca en la aplicación práctica para el trabajo.', val_a: {x:-1, y:0}, val_b: {x:1, y:0} }, { q: 'Piensa en tu principal objetivo al terminar la universidad. ¿Con cuál de estas frases te identificas más?', a: '"Asegurar un camino claro hacia la estabilidad y un buen salario, aunque deba enfocarme solo en lo profesional".', b: '"Formarme como una persona con una visión más amplia, aunque el camino profesional sea menos directo".', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Imagina que tienes dos ofertas para una práctica universitaria. ¿Cuál eliges?', a: 'Una en una startup competitiva con aprendizaje acelerado y autonomía, aunque la carga de trabajo sea alta y exija disponibilidad fuera de horarios.', b: 'Una en una organización con un plan de formación estructurado, un horario fijo que respeta mi tiempo personal y un tutor asignado.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: 'La universidad ofrece dos programas de intercambio internacional. ¿Cuál te llama más la atención?', a: 'Un programa enfocado en una pasantía intensiva en una empresa multinacional.', b: 'Un programa de voluntariado en una comunidad para el intercambio cultural y desarrollo social.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: '¿Qué habilidad crees que es más crucial desarrollar en la U para tu futuro?', a: 'Dominar un software o una técnica muy específica de mi campo.', b: 'Aprender a comunicarme efectivamente y a trabajar en equipos diversos.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué tipo de evento profesional te atrae más?', a: 'Una feria de empleo, enfocada en la eficiencia de entregar mi hoja de vida y conseguir entrevistas.', b: 'Un conversatorio con egresados para inspirarme, aunque no ofrezca una oportunidad laboral inmediata.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Si tuvieras una tarde libre en el campus, ¿qué actividad preferirías?', a: 'Asistir a una charla con un gerente de una empresa importante sobre tendencias del mercado.', b: 'Participar en un taller de escritura creativa o en un cine-foro para discutir una película.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Un grupo estudiantil te invita a participar. ¿Cuál de estas dos propuestas te atrae más?', a: 'Un grupo para desarrollar proyectos de emprendimiento, que exige alta dedicación para competir y buscar financiación.', b: 'Un grupo de apoyo y bienestar, donde el foco es crear lazos de amistad y un ambiente de soporte mutuo.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: 'Al final de tu carrera, ¿qué logro te haría sentir más orgulloso/a?', a: 'Haber desarrollado un proyecto innovador, asumiendo el riesgo de invertir tiempo y recursos propios para materializarlo.', b: 'Ser reconocido/a por mis profesores por mi excelencia, abriendo puertas a becas de posgrado o recomendaciones laborales.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: '¿Qué es lo más valioso que te llevas de un día en el campus?', a: 'La sensación de pertenecer a una comunidad, invirtiendo tiempo en construir relaciones de amistad y apoyo mutuo.', b: 'Los contactos que hago con personas que pueden ser clave para mi futuro profesional, aunque esto implique ser más estratégico/a.', val_a: {x:-1, y:0}, val_b: {x:1, y:0} }, { q: 'Cuando te encuentras con un trámite administrativo complicado, ¿qué sueles hacer primero?', a: 'Intento resolverlo por mi cuenta, buscando la información en la página web.', b: 'Voy directamente a la oficina correspondiente para que un funcionario me explique el proceso.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Te das cuenta de que no entiendes un tema clave para el examen final. ¿Qué haces?', a: 'Dedico varias horas a investigar por mi cuenta. Veo el no entender como un reto personal.', b: 'Organizo un grupo de estudio y le pido al profesor una tutoría extra para que nos refuerce.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué tipo de apoyo preventivo te parece más útil?', a: 'Un taller para mejorar mis hábitos de estudio y organización.', b: 'Un espacio de escucha y apoyo emocional para manejar la presión académica.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué tipo de orientación prefieres?', a: 'Un mentor que me rete y me impulse a salir de mi zona de confort.', b: 'Un tutor que me dé seguridad y me confirme que voy por el camino correcto.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Tu profesor presenta un proyecto final muy abierto, diciendo: "Sorpréndanme". ¿Cuál es tu reacción inicial?', a: '¡Genial! Me encanta la libertad para investigar y proponer algo original por mi cuenta.', b: 'Uff... prefiero buscar al profesor para que me dé lineamientos más claros y ejemplos.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Si tienes una idea para mejorar un proceso en la U, ¿qué haces?', a: 'La desarrollo y la presento formalmente, asumiendo el liderazgo y el trabajo extra que esto implica.', b: 'La comparto en los canales oficiales, confiando en que las estructuras existentes la procesen adecuadamente.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Un proyecto en el que trabajaste mucho no da los resultados esperados. ¿Cómo lo ves?', a: 'Como una oportunidad de aprendizaje valiosa para entender qué falló y mejorar.', b: 'Como una frustración que me hace dudar de si debería tomar tantos riesgos.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, ] },
@@ -194,7 +223,7 @@
                     
                     if (!response.ok) {
                     const errorData = await response.json(); // Leer el JSON del error
-                    throw new Error(errorData.error); // Mostrar el error real del servidor
+                    throw new Error('Error del servidor: ' + errorData.error); // Mostrar el error real
                     }
 
                     // 4. Calculamos los resultados para mostrarlos AL ESTUDIANTE (esto no va a la BD)
@@ -243,6 +272,9 @@
     </script>
 </body>
 </html>
+
+
+
 
 
 
