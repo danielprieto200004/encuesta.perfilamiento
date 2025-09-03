@@ -70,7 +70,7 @@
     <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div class="flex items-center space-x-4 floating-element">
-                <img src="https://portales.vanguardia.com/campus/wp-content/uploads/2023/05/4.LOGOSCLIENTES-UNIMINUTO-min.png" alt="Logo UNIMINUTO" class="h-12 w-auto">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6f/Logo_UNIMINUTO.svg/2560px-Logo_UNIMINUTO.svg.png" alt="Logo UNIMINUTO" class="h-12 w-auto">
             </div>
             <div class="text-center md:text-right">
                 <span class="font-bold text-base md:text-lg gradient-text">Test de Perfilamiento</span>
@@ -121,7 +121,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const habeasDataCheck = document.getElementById('habeasDataCheck');
 
-        // Lógica para habilitar/deshabilitar el botón
+        // Lógica para habilitar/deshabilitar el botón según el checkbox
         habeasDataCheck.addEventListener('change', function() {
             if (this.checked) {
                 submitBtn.disabled = false;
@@ -132,9 +132,27 @@
 
         registroForm.addEventListener('submit', async function(event) {
             event.preventDefault();
+            
+            // --- INICIO DEL BLOQUE DE VALIDACIÓN DE CORREO ---
+            const emailInput = document.getElementById('studentEmail');
+            const email = emailInput.value.trim(); // Quitamos espacios al inicio/final
+            const studentIdInput = document.getElementById('studentId');
+
+            if (!email.endsWith('@uniminuto.edu.co')) {
+                alert('Error: Por favor, utiliza tu correo institucional válido que termine en "@uniminuto.edu.co".');
+                // Marcamos el campo de correo con un borde rojo para guiar al usuario
+                emailInput.classList.add('border-red-500', 'ring-red-500');
+                emailInput.focus();
+                return; // Detenemos el envío del formulario aquí
+            } else {
+                 // Si el correo es correcto, nos aseguramos de que no tenga el borde de error
+                emailInput.classList.remove('border-red-500', 'ring-red-500');
+            }
+            // --- FIN DEL BLOQUE DE VALIDACIÓN DE CORREO ---
+
             const studentData = {
-                codigo_institucional: document.getElementById('studentId').value,
-                email: document.getElementById('studentEmail').value
+                codigo_institucional: studentIdInput.value,
+                email: email // Usamos la variable 'email' que ya validamos
             };
     
             try {
