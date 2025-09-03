@@ -11,10 +11,25 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            /* ===== ESTE ES EL NUEVO FONDO MÁS SUAVE ===== */
-            background: linear-gradient(135deg, #E0F2FE 0%, #BFDBFE 100%);
+            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 50%, #2563eb 75%, #1d4ed8 100%);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
             min-height: 100vh;
             position: relative;
+        }
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
+            pointer-events: none; z-index: -1;
+        }
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
         }
         .glass-effect {
             background: rgba(255, 255, 255, 0.95);
@@ -31,6 +46,10 @@
         @keyframes float {
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
+        }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; } 50% { opacity: 0.7; }
         }
         .start-btn {
             background: linear-gradient(135deg, #1E40AF, #3B82F6);
@@ -51,7 +70,11 @@
     <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div class="flex items-center space-x-4 floating-element">
-                <img src="logo.png" alt="Logo UNIMINUTO" class="h-24 w-auto">
+                <img src="logo.png" alt="Logo UNIMINUTO" class="h-20 w-auto">
+                <div>
+                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">UNIMINUTO</h1>
+                    <p class="text-xs md:text-sm text-gray-600 font-medium">Observatorio Experimental</p>
+                </div>
             </div>
             <div class="text-center md:text-right">
                 <span class="font-bold text-base md:text-lg gradient-text">Test de Perfilamiento</span>
@@ -108,6 +131,7 @@
         const submitBtn = document.getElementById('submitBtn');
         const habeasDataCheck = document.getElementById('habeasDataCheck');
 
+        // Lógica para habilitar/deshabilitar el botón según el checkbox
         habeasDataCheck.addEventListener('change', function() {
             if (this.checked) {
                 submitBtn.disabled = false;
@@ -119,6 +143,7 @@
         registroForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             
+            // --- INICIO DEL BLOQUE DE VALIDACIÓN DE CORREO ---
             const emailInput = document.getElementById('studentEmail');
             const email = emailInput.value.trim();
             const studentIdInput = document.getElementById('studentId');
@@ -131,6 +156,7 @@
             } else {
                 emailInput.classList.remove('border-red-500', 'ring-red-500');
             }
+            // --- FIN DEL BLOQUE DE VALIDACIÓN DE CORREO ---
 
             const studentData = {
                 codigo_institucional: studentIdInput.value,
