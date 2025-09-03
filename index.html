@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bienvenido al Test de Perfilamiento | UNIMINUTO</title>
+    <title>Test de Perfilamiento - UNIMINUTO</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,115 +11,78 @@
     <style>
         body {
             font-family: 'Inter', sans-serif;
-            background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 25%, #3b82f6 50%, #2563eb 75%, #1d4ed8 100%);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-            min-height: 100vh;
-            position: relative;
-        }
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%);
-            pointer-events: none; z-index: -1;
-        }
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-        .glass-effect {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-        }
-        .gradient-text {
-            background: linear-gradient(135deg, #1E40AF, #7C3AED);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-        }
-        .floating-element { animation: float 6s ease-in-out infinite; }
-        @keyframes float {
-            0%, 100% { transform: translateY(0px); }
-            50% { transform: translateY(-10px); }
-        }
-        .pulse-animation { animation: pulse 2s infinite; }
-        @keyframes pulse {
-            0%, 100% { opacity: 1; } 50% { opacity: 0.7; }
-        }
-        .start-btn {
-            background: linear-gradient(135deg, #1E40AF, #3B82F6);
-            transition: all 0.3s ease;
-        }
-        .start-btn:hover:not(:disabled) {
-            transform: scale(1.05);
-            box-shadow: 0 10px 25px rgba(30, 64, 175, 0.3);
-        }
-        .start-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
         }
     </style>
 </head>
-<body class="text-gray-800">
+<body class="bg-blue-700 antialiased">
 
-    <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
-        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
-            <div class="flex items-center space-x-4 floating-element">
-                <img src="logo.png" alt="Logo UNIMINUTO" class="h-20 w-auto">
-            </div>
-            <div class="text-center md:text-right">
-                <span class="font-bold text-base md:text-lg gradient-text">ADN Estudiantil</span>
-                <p class="text-xs md:text-sm text-gray-600">Paso 1: Registro</p>
+    <header class="bg-white shadow-sm">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0">
+                    <img class="h-20 w-auto" src="logo.png" alt="Logo UNIMINUTO">
+                </div>
+                <div class="text-right">
+                    <h2 class="text-sm font-bold text-slate-800">Test de Perfilamiento</h2>
+                    <p class="text-xs text-slate-500">Paso 1: Registro</p>
+                </div>
             </div>
         </div>
     </header>
 
-    <main class="container mx-auto p-4">
-        <section class="text-center glass-effect p-6 md:p-12 rounded-2xl shadow-2xl my-8 md:my-16 floating-element">
-            <h2 class="text-3xl md:text-5xl font-extrabold gradient-text mb-4">Bienvenido/a</h2>
-            <p class="text-lg md:text-xl text-gray-700 max-w-4xl mx-auto leading-relaxed">
-                Estás a punto de iniciar una herramienta de autodescubrimiento. Por favor, ingresa tus datos para comenzar.
-            </p>
+    <main class="flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+        <div class="w-full max-w-lg p-8 md:p-10 space-y-8 bg-blue-50 rounded-2xl shadow-xl">
             
-            <div class="max-w-3xl mx-auto border-t border-b border-gray-200 py-6 my-8">
-                <h3 class="text-2xl font-bold text-gray-800 mb-3">¡Tu perspectiva construye el futuro!</h3>
-                <p class="text-gray-600 mb-3 leading-relaxed">Te invitamos a ser parte activa del cambio. A través de esta encuesta, buscamos conocer a fondo a nuestros estudiantes para desarrollar proyectos e iniciativas que realmente conecten con tus aspiraciones.</p>
-                <p class="text-gray-600 leading-relaxed">Cada respuesta es un paso hacia una mejor experiencia para todos. Tus datos serán tratados con total confidencialidad. ¡Gracias por tu tiempo y compromiso!</p>
+            <div class="text-center">
+                 <h1 class="text-3xl font-extrabold tracking-tight text-blue-900">
+                    ¡Tu perspectiva construye el futuro!
+                 </h1>
+                 <p class="mt-3 text-md text-blue-800">
+                    Te invitamos a ser parte del cambio. Ingresa tus datos para iniciar esta herramienta de autodescubrimiento y ayudarnos a mejorar tu experiencia.
+                 </p>
             </div>
-            <form id="registroForm" class="max-w-md mx-auto">
-                <div class="mb-4">
-                    <input type="text" id="studentId" required class="glass-effect text-base md:text-lg shadow-inner appearance-none border border-gray-200 rounded-xl w-full py-3 px-4 md:py-4 md:px-5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="ID Estudiante (Ej: 000123456)">
-                    <p class="text-xs text-gray-600 text-left mt-2 px-1">Si no sabes tu ID, revisa tu carnet físico o u-wallet.</p>
-                </div>
-                <div class="mb-6">
-                    <input type="email" id="studentEmail" required class="glass-effect text-base md:text-lg shadow-inner appearance-none border border-gray-200 rounded-xl w-full py-3 px-4 md:py-4 md:px-5 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500" placeholder="Correo Institucional">
-                </div>
-                
-                <div class="mb-6 md:mb-8 text-left flex items-start space-x-3">
-                    <input type="checkbox" id="habeasDataCheck" class="mt-1 h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded">
-                    <label for="habeasDataCheck" class="text-sm text-gray-700">
-                        Acepto la <a href="URL_DE_LA_POLITICA_DE_DATOS" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">política de tratamiento de datos personales</a> de UNIMINUTO para la realización de este test.
-                    </label>
+
+            <form id="registroForm" class="mt-8 space-y-6">
+                <div>
+                    <label for="studentId" class="block text-sm font-medium text-slate-700">ID Estudiante</label>
+                    <div class="mt-1">
+                        <input id="studentId" name="student-id" type="text" required
+                               class="block w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               placeholder="Ej: 000123456">
+                    </div>
+                     <p class="mt-2 text-xs text-slate-500">Si no sabes tu ID, revisa tu carnet físico o u-wallet.</p>
                 </div>
 
-                <button type="submit" id="submitBtn" class="start-btn text-white font-bold py-4 px-10 md:py-5 md:px-12 rounded-2xl text-xl md:text-2xl w-full" disabled>
-                    Iniciar Test
-                </button>
+                <div>
+                    <label for="studentEmail" class="block text-sm font-medium text-slate-700">Correo Institucional</label>
+                    <div class="mt-1">
+                        <input id="studentEmail" name="email" type="email" autocomplete="email" required
+                               class="block w-full px-4 py-3 bg-white border border-slate-300 rounded-lg text-sm shadow-sm placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                               placeholder="nombre.apellido@uniminuto.edu.co">
+                    </div>
+                </div>
+
+                <div class="flex items-start">
+                    <div class="flex items-center h-5">
+                        <input id="habeasDataCheck" name="accept-policy" type="checkbox"
+                               class="h-4 w-4 text-indigo-600 border-slate-300 rounded focus:ring-indigo-500">
+                    </div>
+                    <div class="ml-3 text-sm">
+                        <label for="habeasDataCheck" class="font-medium text-slate-700">
+                            Acepto la <a href="URL_DE_LA_POLITICA_DE_DATOS" target="_blank" rel="noopener noreferrer" class="text-indigo-600 hover:text-indigo-500">política de tratamiento de datos personales</a> de UNIMINUTO para la realización de este test.
+                        </label>
+                    </div>
+                </div>
+
+                <div>
+                    <button id="submitBtn" type="submit"
+                            class="group relative w-full flex justify-center py-3 px-4 border border-transparent text-sm font-semibold rounded-lg text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 transition-colors duration-300 disabled:bg-slate-400 disabled:cursor-not-allowed">
+                        Iniciar Test
+                    </button>
+                </div>
             </form>
-        </section>
-    </main>
-    
-    <footer class="text-center py-8">
-        <div class="max-w-4xl mx-auto px-4">
-            <p class="text-white text-sm mb-2">© 2025 UNIMINUTO. Todos los derechos reservados.</p>
-            <p class="text-blue-200 text-sm font-medium">SymbioTIC Observatorio Experimental de Datos</p>
         </div>
-    </footer>
+    </main>
 
     <script>
         const registroForm = document.getElementById('registroForm');
@@ -127,20 +90,18 @@
         const habeasDataCheck = document.getElementById('habeasDataCheck');
 
         // Lógica para habilitar/deshabilitar el botón según el checkbox
-        habeasDataCheck.addEventListener('change', function() {
-            if (this.checked) {
-                submitBtn.disabled = false;
-            } else {
-                submitBtn.disabled = true;
-            }
-        });
+        function toggleButtonState() {
+            submitBtn.disabled = !habeasDataCheck.checked;
+        }
+        habeasDataCheck.addEventListener('change', toggleButtonState);
+        toggleButtonState(); // Estado inicial del botón
 
         registroForm.addEventListener('submit', async function(event) {
             event.preventDefault();
             
-            // --- INICIO DEL BLOQUE DE VALIDACIÓN DE CORREO ---
+            // --- BLOQUE DE VALIDACIÓN DE CORREO ---
             const emailInput = document.getElementById('studentEmail');
-            const email = emailInput.value.trim(); // Quitamos espacios al inicio/final
+            const email = emailInput.value.trim();
             const studentIdInput = document.getElementById('studentId');
 
             if (!email.endsWith('@uniminuto.edu.co')) {
@@ -151,14 +112,15 @@
             } else {
                 emailInput.classList.remove('border-red-500', 'ring-red-500');
             }
-            // --- FIN DEL BLOQUE DE VALIDACIÓN DE CORREO ---
+            // --- FIN DEL BLOQUE DE VALIDACIÓN ---
 
             const studentData = {
                 codigo_institucional: studentIdInput.value,
-                email: email
+                email: email 
             };
     
             try {
+                // Llama a tu API de Python para iniciar la sesión
                 const response = await fetch('https://api-encuesta-uniminuto-v1-e5f2dva8eydqggcm.chilecentral-01.azurewebsites.net/api/iniciar-sesion', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -169,7 +131,7 @@
     
                 if (response.ok) {
                     sessionStorage.setItem('id_sesion', data.id_sesion);
-                    sessionStorage.setItem('studentInfo', JSON.stringify(studentData));
+                    sessionStorage.setItem('studentInfo', JSON.stringify(studentData)); 
                     window.location.href = 'test.html';
                 } else {
                     alert('Error al registrar: ' + data.error);
@@ -180,9 +142,9 @@
             }
         });
     </script>
-
 </body>
 </html>
+
 
 
 
