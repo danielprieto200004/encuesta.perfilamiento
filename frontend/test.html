@@ -13,26 +13,17 @@
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.2) 0%, transparent 50%); pointer-events: none; z-index: -1; }
         @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
-        
-        /* ESTILOS AÑADIDOS PARA LAS NUEVAS PANTALLAS Y TRANSICIONES */
-        #questionContainer, .overlay { transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; }
-        .intro-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeOutDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
-        .fade-in-up { animation: fadeInUp 0.5s ease-in-out forwards; }
-        .fade-out-down { animation: fadeOutDown 0.5s ease-in-out forwards; }
-        /* FIN DE ESTILOS AÑADIDOS */
-        
+        #questionContainer { transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1); }
         .question-card, .section-header { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); }
         .question-changing { opacity: 0; transform: scale(0.95); }
         .option-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid rgba(59, 130, 246, 0.2); }
-        .option-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2); border-color: #3B82F6; }
+        .option-btn:hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2); border-color: #3B82F6; }
         .option-btn.selected { background: linear-gradient(135deg, #1E40AF, #3B82F6); color: white; border-color: #1E40AF; transform: translateY(-3px); box-shadow: 0 15px 35px rgba(30, 64, 175, 0.3); }
         .progress-bar-fill { transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); background: linear-gradient(90deg, #3B82F6, #1E40AF, #7C3AED); }
         .floating-element { animation: float 6s ease-in-out infinite; }
         @keyframes float { 0%, 100% { transform: translateY(0px); } 50% { transform: translateY(-10px); } }
+        .pulse-animation { animation: pulse 2s infinite; }
+        @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.7; } }
         .gradient-text { background: linear-gradient(135deg, #1E40AF, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .submit-btn-ready { background: linear-gradient(135deg, #10B981, #059669); animation: readyPulse 2s infinite; }
         @keyframes readyPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
@@ -63,27 +54,9 @@
         </div>
     </header>
 
-    <main class="container mx-auto p-4 md:p-8 relative">
-
-        <div id="welcome-overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30 p-4">
-            <div class="intro-card text-center p-8 md:p-12 rounded-2xl shadow-2xl max-w-2xl mx-auto fade-in-up">
-                <h2 class="text-3xl md:text-4xl font-extrabold gradient-text mb-4">¡Estás listo/a para comenzar!</h2>
-                <p class="text-lg md:text-xl text-gray-600 mb-8">El test consta de 60 preguntas divididas en 3 secciones. No hay respuestas correctas o incorrectas, solo elige la opción que mejor te represente. ¡Adelante!</p>
-                <button id="start-test-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-10 rounded-xl text-xl transition-transform transform hover:scale-105">Comenzar Test</button>
-            </div>
-        </div>
-
-        <div id="section-intro" class="overlay fixed inset-0 bg-black bg-opacity-50 items-center justify-center z-30 p-4" style="display: none;">
-            <div class="intro-card text-center p-8 md:p-12 rounded-2xl shadow-2xl max-w-2xl mx-auto">
-                <div id="intro-section-icon" class="w-20 h-20 rounded-2xl flex items-center justify-center mx-auto mb-6 text-5xl"></div>
-                <h3 id="intro-section-title" class="text-3xl md:text-4xl font-bold gradient-text mb-4"></h3>
-                <p id="intro-section-description" class="text-lg md:text-xl text-gray-600 mb-8"></p>
-                <button id="continue-btn" class="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-xl text-lg transition-transform transform hover:scale-105">Continuar</button>
-            </div>
-        </div>
-        
-        <div id="questionContainer" class="max-w-4xl mx-auto" style="display: none;">
-            <div id="section-header" class="section-header p-6 md:p-8 rounded-2xl shadow-xl mb-6 md:mb-8">
+    <main class="container mx-auto p-4 md:p-8">
+        <div id="questionContainer" class="max-w-4xl mx-auto" style="opacity: 0; transform: translateY(30px);">
+            <div class="section-header p-6 md:p-8 rounded-2xl shadow-xl mb-6 md:mb-8">
                 <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
                     <div class="flex items-center space-x-4">
                         <div id="sectionIcon" class="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0"></div>
@@ -123,8 +96,6 @@
     </main>
 
     <script>
-        // LÓGICA AÑADIDA: VARIABLE SEMÁFORO PARA PROTECCIÓN DE CLICS
-        let isProcessing = false;
         // --- DATA STORE ---
 const surveyData = {
     diagrams: [
@@ -567,7 +538,7 @@ const surveyData = {
     answers: {}
 };
 
-         document.addEventListener('DOMContentLoaded', () => {
+        document.addEventListener('DOMContentLoaded', () => {
             let currentQuestionIndex = 0;
             let allQuestions = [];
             
