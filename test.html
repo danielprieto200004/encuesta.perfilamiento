@@ -34,17 +34,13 @@
     <header class="glass-effect shadow-2xl p-4 md:p-6 sticky top-0 z-20">
         <div class="container mx-auto flex flex-col md:flex-row justify-between items-center gap-4 md:gap-0">
             <div class="flex items-center space-x-4 floating-element">
-                <div class="relative">
-                    <svg class="h-10 w-10 md:h-12 md:w-12 text-blue-700" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" d="M12 21a9.004 9.004 0 008.716-6.747M12 21a9.004 9.004 0 01-8.716-6.747M12 21c2.485 0 4.5-4.03 4.5-9S14.485 3 12 3m0 18c-2.485 0-4.5-4.03-4.5-9S9.515 3 12 3m0 0a8.997 8.997 0 017.843 4.582M12 3a8.997 8.997 0 00-7.843 4.582m15.686 0A11.953 11.953 0 0112 10.5c-2.998 0-5.74-1.1-7.843-2.918m15.686 0A8.959 8.959 0 0121 12c0 .778-.099 1.533-.284 2.253m0 0A17.919 17.919 0 0112 16.5c-3.162 0-6.133-.815-8.716-2.247m0 0A9.015 9.015 0 013 12c0-1.605.42-3.113 1.157-4.418" /></svg>
-                    <div class="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full pulse-animation"></div>
-                </div>
+                <img src="logo.png" alt="Logo UNIMINUTO" class="h-20 w-auto">
                 <div>
-                    <h1 class="text-2xl md:text-3xl font-bold gradient-text">UNIMINUTO</h1>
-                    <p class="text-xs md:text-sm text-gray-600 font-medium">Observatorio Experimental</p>
+                    <p class="text-xs md:text-sm text-gray-600 font-medium">SymbioTIC - Observatorio Experimental</p>
                 </div>
             </div>
             <div class="text-center md:text-right">
-                <span class="font-bold text-base md:text-lg gradient-text">Test de Perfilamiento</span>
+                <span class="font-bold text-base md:text-lg gradient-text">Test ADN Estudiantil</span>
                 <p class="text-xs md:text-sm text-gray-600">Paso 2: Cuestionario</p>
             </div>
         </div>
@@ -101,14 +97,446 @@
 
     <script>
         // --- DATA STORE ---
-        const surveyData = {
-            diagrams: [
-                { id: 'd1', questions: [ { q: 'A la hora de elegir tus materias electivas, ¿qué pesa más en tu decisión?', a: 'La que me enseñe una habilidad específica muy demandada en el mercado laboral.', b: 'La que despierte mi curiosidad y me permita explorar un tema nuevo.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Para ti, ¿qué significa que un profesor es "excelente"?', a: 'Que tiene experiencia en la industria y enfoca sus clases en las habilidades que las empresas necesitan.', b: 'Que inspira a pensar críticamente, fomenta el debate y se preocupa por el desarrollo personal.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué tipo de evaluación te parece más representativa de tu aprendizaje?', a: 'Una que me permita demostrar mi capacidad de investigar y proponer soluciones originales.', b: 'Una que mida mi conocimiento sobre los temas vistos en clase a través de preguntas claras.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué momento de una clase presencial consideras más valioso?', a: 'El debate espontáneo que surge y enriquece el tema desde múltiples perspectivas.', b: 'La explicación del profesor que se enfoca en la aplicación práctica para el trabajo.', val_a: {x:-1, y:0}, val_b: {x:1, y:0} }, { q: 'Piensa en tu principal objetivo al terminar la universidad. ¿Con cuál de estas frases te identificas más?', a: '"Asegurar un camino claro hacia la estabilidad y un buen salario, aunque deba enfocarme solo en lo profesional".', b: '"Formarme como una persona con una visión más amplia, aunque el camino profesional sea menos directo".', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Imagina que tienes dos ofertas para una práctica universitaria. ¿Cuál eliges?', a: 'Una en una startup competitiva con aprendizaje acelerado y autonomía, aunque la carga de trabajo sea alta y exija disponibilidad fuera de horarios.', b: 'Una en una organización con un plan de formación estructurado, un horario fijo que respeta mi tiempo personal y un tutor asignado.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: 'La universidad ofrece dos programas de intercambio internacional. ¿Cuál te llama más la atención?', a: 'Un programa enfocado en una pasantía intensiva en una empresa multinacional.', b: 'Un programa de voluntariado en una comunidad para el intercambio cultural y desarrollo social.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: '¿Qué habilidad crees que es más crucial desarrollar en la U para tu futuro?', a: 'Dominar un software o una técnica muy específica de mi campo.', b: 'Aprender a comunicarme efectivamente y a trabajar en equipos diversos.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué tipo de evento profesional te atrae más?', a: 'Una feria de empleo, enfocada en la eficiencia de entregar mi hoja de vida y conseguir entrevistas.', b: 'Un conversatorio con egresados para inspirarme, aunque no ofrezca una oportunidad laboral inmediata.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Si tuvieras una tarde libre en el campus, ¿qué actividad preferirías?', a: 'Asistir a una charla con un gerente de una empresa importante sobre tendencias del mercado.', b: 'Participar en un taller de escritura creativa o en un cine-foro para discutir una película.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Un grupo estudiantil te invita a participar. ¿Cuál de estas dos propuestas te atrae más?', a: 'Un grupo para desarrollar proyectos de emprendimiento, que exige alta dedicación para competir y buscar financiación.', b: 'Un grupo de apoyo y bienestar, donde el foco es crear lazos de amistad y un ambiente de soporte mutuo.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: 'Al final de tu carrera, ¿qué logro te haría sentir más orgulloso/a?', a: 'Haber desarrollado un proyecto innovador, asumiendo el riesgo de invertir tiempo y recursos propios para materializarlo.', b: 'Ser reconocido/a por mis profesores por mi excelencia, abriendo puertas a becas de posgrado o recomendaciones laborales.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: '¿Qué es lo más valioso que te llevas de un día en el campus?', a: 'La sensación de pertenecer a una comunidad, invirtiendo tiempo en construir relaciones de amistad y apoyo mutuo.', b: 'Los contactos que hago con personas que pueden ser clave para mi futuro profesional, aunque esto implique ser más estratégico/a.', val_a: {x:-1, y:0}, val_b: {x:1, y:0} }, { q: 'Cuando te encuentras con un trámite administrativo complicado, ¿qué sueles hacer primero?', a: 'Intento resolverlo por mi cuenta, buscando la información en la página web.', b: 'Voy directamente a la oficina correspondiente para que un funcionario me explique el proceso.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Te das cuenta de que no entiendes un tema clave para el examen final. ¿Qué haces?', a: 'Dedico varias horas a investigar por mi cuenta. Veo el no entender como un reto personal.', b: 'Organizo un grupo de estudio y le pido al profesor una tutoría extra para que nos refuerce.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué tipo de apoyo preventivo te parece más útil?', a: 'Un taller para mejorar mis hábitos de estudio y organización.', b: 'Un espacio de escucha y apoyo emocional para manejar la presión académica.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué tipo de orientación prefieres?', a: 'Un mentor que me rete y me impulse a salir de mi zona de confort.', b: 'Un tutor que me dé seguridad y me confirme que voy por el camino correcto.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Tu profesor presenta un proyecto final muy abierto, diciendo: "Sorpréndanme". ¿Cuál es tu reacción inicial?', a: '¡Genial! Me encanta la libertad para investigar y proponer algo original por mi cuenta.', b: 'Uff... prefiero buscar al profesor para que me dé lineamientos más claros y ejemplos.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Si tienes una idea para mejorar un proceso en la U, ¿qué haces?', a: 'La desarrollo y la presento formalmente, asumiendo el liderazgo y el trabajo extra que esto implica.', b: 'La comparto en los canales oficiales, confiando en que las estructuras existentes la procesen adecuadamente.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Un proyecto en el que trabajaste mucho no da los resultados esperados. ¿Cómo lo ves?', a: 'Como una oportunidad de aprendizaje valiosa para entender qué falló y mejorar.', b: 'Como una frustración que me hace dudar de si debería tomar tantos riesgos.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, ] },
-                { id: 'd2', questions: [ { q: 'Prefieres un curso que se base principalmente en...', a: 'un gran proyecto semestral que te reta a integrar y aplicar conocimientos sobre un caso real.', b: 'módulos temáticos secuenciales, con talleres y evaluaciones que aseguran el dominio de cada concepto.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué profesor consideras que te prepara mejor?', a: 'El que resuelve en clase muchos ejercicios prácticos tipo examen, asegurando que sepas cómo aplicar los conceptos.', b: 'El que te hace entender la teoría a la perfección, confiando en que tú encontrarás la forma de aplicarla.', val_a: {x:1, y:-1}, val_b: {x:-1, y:1} }, { q: '¿Cómo prefieres recibir la retroalimentación de un proyecto?', a: 'Comentarios puntuales y frecuentes durante todo el proceso para poder corregir sobre la marcha.', b: 'Una evaluación final detallada que me permita ver el resultado global y aprender de él para el futuro.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: '¿Qué situación te generaría más frustración a largo plazo?', a: 'Pasar un curso sin mucho esfuerzo, pero luego sentir que no tienes las bases sólidas para el siguiente.', b: 'Estudiar muchísimo y sentir que aprendiste un montón, pero que la nota final no lo refleje.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: '¿Qué tipo de conocimiento crees que te servirá más en tu primer trabajo?', a: 'El dominio de herramientas y procesos prácticos que pueda usar desde el primer día.', b: 'Una base conceptual sólida que me permita entender el porqué de las cosas y adaptarme a futuros cambios.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'En una entrevista de trabajo, ¿qué preferirías demostrar?', a: 'Un portafolio con proyectos y resultados concretos que he construido.', b: 'Mi capacidad para analizar problemas complejos desde una perspectiva teórica y estratégica.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué tipo de taller extracurricular te parece más útil?', a: 'Uno para aprender a usar un software específico de tu carrera, con un certificado al final.', b: 'Uno sobre pensamiento crítico y argumentación, con debates abiertos y sin una evaluación formal.', val_a: {x:1, y:-1}, val_b: {x:-1, y:1} }, { q: 'Si te unes a un club académico, ¿cuál eliges?', a: 'Un club de robótica o programación para construir, competir y ver resultados tangibles.', b: 'Un club de lectura o filosofía para debatir sobre grandes obras, ideas y sus implicaciones.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué tipo de conversación académica disfrutas más con amigos?', a: 'Discutir cómo aplicar lo visto en clase para resolver un problema del mundo real.', b: 'Debatir sobre las implicaciones filosóficas o éticas de una teoría que vieron en clase.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Si buscas ayuda en una tutoría, ¿qué esperas?', a: 'Que me guíen paso a paso para resolver los ejercicios específicos que no entiendo.', b: 'Que me recomienden libros y fuentes para que pueda investigar y entender el tema por mi cuenta.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: '¿Qué tipo de recurso en línea usas más para estudiar?', a: 'Videos tutoriales oficiales que explican un tema de forma clara y secuencial.', b: 'Foros donde otros estudiantes y expertos debaten y resuelven dudas de forma colaborativa.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: '¿Qué tipo de guía de un profesor valoras más a largo plazo?', a: 'La de un profesor exigente que te señala tus errores sin rodeos para forzarte a mejorar y a ser más autónomo/a.', b: 'La de un profesor que te acompaña de cerca, te da confianza y te ofrece una estructura de apoyo constante.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Para ti, innovar en la universidad es...', a: 'crear un prototipo, un plan de negocio o un producto que funcione y resuelva un problema práctico.', b: 'desarrollar un nuevo modelo teórico o un ensayo que ofrezca una perspectiva original sobre un tema.', val_a: {x:1, y:1}, val_b: {x:-1, y:1} }, { q: '¿Cómo organizas tu tiempo de estudio?', a: 'Me gusta tener un plan de estudio detallado con metas diarias y horarios fijos para cada materia.', b: 'Estudio de forma más orgánica, profundizando en los temas que más me interesan en el momento.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: 'Ante un problema sin solución clara, ¿qué haces primero?', a: 'Busco metodologías y casos prácticos que otros han usado para tener una base aplicable.', b: 'Empiezo a experimentar con diferentes enfoques conceptuales, aceptando que puedo cometer errores en el proceso.', val_a: {x:1, y:-1}, val_b: {x:-1, y:1} }, { q: '¿Qué tipo de examen final prefieres?', a: 'Uno con preguntas abiertas donde puedes demostrar tu comprensión con tus propias palabras, aunque la calificación sea más subjetiva.', b: 'Uno con problemas y preguntas con puntaje definido, donde las reglas de calificación son claras y objetivas.', val_a: {x:-1, y:1}, val_b: {x:1, y:-1} }, { q: '¿Qué te motiva más a aprender?', a: 'La posibilidad de construir algo con mis propias manos y ver que funciona.', b: 'La satisfacción de comprender a fondo una idea abstracta y sus implicaciones.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Un profesor te da la opción de...', a: 'seguir un tutorial detallado para aprender una nueva habilidad y asegurar un resultado correcto.', b: 'experimentar libremente con una nueva tecnología, aunque no haya una guía y el resultado sea incierto.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: '¿Qué tipo de trabajo en grupo prefieres?', a: 'Uno donde los roles y las tareas de cada integrante están claramente definidos desde el principio.', b: 'Uno donde el equipo explora el problema de forma conjunta y los roles y soluciones surgen orgánicamente.', val_a: {x:0, y:-1}, val_b: {x:0, y:1} }, { q: '¿Qué es más importante en un syllabus para ti?', a: 'Que los objetivos de aprendizaje sean prácticos y las evaluaciones estén claramente definidas.', b: 'Que la bibliografía sea profunda y los temas inviten a la exploración independiente.', val_a: {x:1, y:-1}, val_b: {x:-1, y:1} }, ] },
-                { id: 'd3', questions: [ { q: '¿Qué valoras más de un trabajo en grupo?', a: 'Trabajar con los compañeros más capaces, aunque la dinámica sea competitiva, para asegurar la mejor nota y aprender de los mejores.', b: 'Trabajar con mis amigos, aunque no sean los más expertos, para asegurar un buen ambiente y apoyarnos mutuamente.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: 'Un profesor invita a un ponente externo. ¿Qué te parece más interesante?', a: 'Que sea un alto ejecutivo de una empresa líder para hacer contactos valiosos.', b: 'Que sea un líder social o un artista que inspire una reflexión profunda en la comunidad.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Cuál es tu principal objetivo al asistir a un evento universitario?', a: 'Identificar y conversar con personas (profesores, ponentes) que puedan potenciar mi carrera.', b: 'Relajarme y compartir un buen rato con mi círculo de amigos cercanos.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: '¿Qué tipo de programa de mentoría prefieres?', a: 'Uno con un egresado exitoso en mi campo, enfocado en consejos de carrera y networking.', b: 'Uno con un estudiante de semestres avanzados, enfocado en el apoyo académico y la adaptación a la vida universitaria.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Cómo usas tus redes sociales en el contexto universitario?', a: 'Principalmente para construir un perfil profesional (ej. LinkedIn) y seguir a líderes de la industria.', b: 'Principalmente para mantenerme en contacto con mis amigos y enterarme de eventos sociales y de bienestar.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Qué te motivaría a ser voluntario en un evento de la universidad?', a: 'La posibilidad de tener un rol visible y conocer a los organizadores y ponentes importantes.', b: 'La oportunidad de colaborar con mis amigos en una causa común y fortalecer nuestros lazos.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: '¿Qué tipo de evento social prefieres?', a: 'Una fiesta grande o un concierto con toda la facultad, ideal para conocer mucha gente nueva.', b: 'Una reunión pequeña en la cafetería o una salida a comer con tu grupo de amigos de siempre.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Cuando llegas a un lugar concurrido en el campus, ¿qué haces?', a: 'Me muevo entre diferentes grupos, saludando a varias personas y participando en distintas conversaciones.', b: 'Busco un lugar tranquilo o me siento con las una o dos personas con las que tengo más confianza.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué te haría sentir más satisfecho/a?', a: 'Organizar un gran evento que tenga un impacto masivo y sea recordado por todos en la universidad.', b: 'Ser la persona a la que un amigo acude cuando necesita un consejo o apoyo incondicional.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué es más importante para ti en la vida universitaria?', a: 'Construir una amplia red de contactos que me sirva profesionalmente, aunque las relaciones sean más superficiales.', b: 'Cultivar unas pocas amistades profundas y significativas, aunque mi red de contactos sea más pequeña.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Cómo te unes a un nuevo grupo o club?', a: 'Investigo cuáles son los más prestigiosos o los que ofrecen mejores oportunidades y me presento activamente.', b: 'Espero a que un amigo me invite o me uno a uno donde ya conozco a varias personas.', val_a: {x:1, y:1}, val_b: {x:-1, y:-1} }, { q: 'Si te sientes abrumado/a, ¿qué buscas?', a: 'Un consejo práctico de un mentor o profesional que me ayude a enfocarme en soluciones para mi carrera.', b: 'El apoyo emocional de mis amigos para desahogarme y sentir que no estoy solo/a en esto.', val_a: {x:1, y:-1}, val_b: {x:-1, y:-1} }, { q: '¿Qué tipo de espacio físico valoras más en el campus?', a: 'Zonas de coworking y salas de reuniones que faciliten la interacción y el trabajo con diversos grupos.', b: 'Zonas de descanso cómodas y silenciosas donde pueda estar solo/a o con un amigo para recargar energías.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué significa "bienestar" para ti en la U?', a: 'Tener las herramientas y contactos para sentir seguridad y confianza en mi futuro profesional.', b: 'Tener un equilibrio saludable entre lo académico y lo personal, con una red de apoyo emocional fuerte.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Cómo prefieres enterarte de las actividades de la U?', a: 'A través de boletines oficiales y redes profesionales para filtrar las oportunidades más relevantes para mi carrera.', b: 'A través de los grupos de WhatsApp con mis amigos y las conversaciones en los pasillos.', val_a: {x:1, y:-1}, val_b: {x:-1, y:-1} }, { q: 'Al iniciar cada semestre, ¿cuál es tu mentalidad principal?', a: '"Aprovecharé para conocer gente nueva, participar en eventos y ampliar mis experiencias más allá de lo académico".', b: '"Vengo a lo mío: me enfocaré en mis clases y en estudiar, las relaciones sociales ya se darán con el tiempo".', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué tipo de liderazgo te resulta más natural?', a: 'Tomar la iniciativa en proyectos, organizar equipos y presentar los resultados frente a audiencias.', b: 'Apoyar al equipo desde un rol más discreto, asegurando que todos se sientan incluidos y escuchados.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, { q: 'Es la final del torneo de la facultad y coincide con una clase que tiene un quiz de bajo puntaje. ¿Qué haces?', a: 'Priorizo mi responsabilidad académica y asisto a clase, aunque me duela perderme la final.', b: 'Juego la final. Es un momento único para el equipo y la comunidad, y asumo el riesgo del quiz.', val_a: {x:1, y:0}, val_b: {x:-1, y:0} }, { q: '¿Cuál es tu postura frente a la política estudiantil (representantes, consejos, etc.)?', a: 'Me involucro. Es una oportunidad clave para generar impacto y establecer relaciones con las directivas.', b: 'No me involucro, pero valoro que otros lo hagan. Prefiero enfocarme 100% en mis estudios y proyectos.', val_a: {x:1, y:1}, val_b: {x:0, y:-1} }, { q: '¿Qué define mejor tu forma de socializar?', a: 'Soy como un "explorador": me gusta conocer gente diversa y adaptarme a diferentes ambientes sociales.', b: 'Soy como un "jardinero": prefiero cuidar y profundizar las pocas relaciones que ya tengo.', val_a: {x:0, y:1}, val_b: {x:0, y:-1} }, ] }
-            ],
-            answers: {}
-        };
+const surveyData = {
+    diagrams: [
+        {
+            id: "d1",
+            questions: [
+                {
+                    q: "A la hora de inscribir materias electivas, ¿qué pesa más en tu decisión?",
+                    a: "La que me enseñe una habilidad demandada en el mercado laboral.",
+                    b: "La que despierte mi curiosidad y me permita explorar un tema nuevo.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Para ti, ¿qué significa que un profesor es \"excelente\"?",
+                    a: "Que tiene experiencia en la industria y enfoca sus clases en las habilidades prácticas.",
+                    b: "Que inspira a pensar críticamente y fomenta el debate para el desarrollo personal.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Qué tipo de examen crees que mide tu nivel de aprendizaje?",
+                    a: "Uno que me permita demostrar mi capacidad de proponer soluciones originales.",
+                    b: "Uno que mida mi conocimiento sobre el temas vistos en clase con preguntas claras.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué momento de una clase presencial consideras más valioso?",
+                    a: "El debate espontáneo que surge y enriquece el tema desde múltiples perspectivas.",
+                    b: "La explicación del profesor que se enfoca en la aplicación práctica de lo aprendido.",
+                    val_a: { x: -1, y: 0 },
+                    val_b: { x: 1, y: 0 }
+                },
+                {
+                    q: "Piensa en tu principal objetivo al terminar la universidad. ¿Con cuál de estas frases te identificas más?",
+                    a: "Asegurar un trabajo estable y buen salario, aunque con reglas laborales tradicionales.",
+                    b: "Formarme con una visión amplia, aunque el desarrollo profesional sea menos directo.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Imagina que tienes dos ofertas para una práctica universitaria. ¿Cuál eliges?",
+                    a: "Una empresa competitiva que me exija aunque con carga de trabajo alta y exigente.",
+                    b: "Una empresa con un plan de formación estructurado, un horario fijo y  jerarquía clara.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "La universidad ofrece dos programas de intercambio internacional. ¿Cuál te llama más la atención?",
+                    a: "Un programa enfocado en una pasantía intensiva en una empresa multinacional.",
+                    b: "Un programa de inmersión en una comunidad con intercambio cultural y social.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "¿Qué habilidad crees que es más crucial desarrollar en la U para tu futuro?",
+                    a: "Dominar una técnica, herramienta o software específica de mi campo.",
+                    b: "Aprender a comunicarme efectivamente y a trabajar en equipos diversos.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Qué tipo de evento profesional te atrae más?",
+                    a: "Una feria de empleo, enfocada en entregar mi hoja de vida y conseguir entrevistas.",
+                    b: "Un conversatorio con egresados para inspirarme y entender el mercado laboral.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Si tuvieras una tarde libre en el universidad, ¿qué actividad preferirías?",
+                    a: "Asistir a una charla con un gerente de una empresa sobre tendencias del mercado.",
+                    b: "Participar en un taller creativo para vivir experiencias con otros compañeros.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Un grupo estudiantil te invita a participar. ¿Cuál de estas dos propuestas te atraería más?",
+                    a: "Un grupo para desarrollar proyectos de emprendimiento que exija alta dedicación.",
+                    b: "Un grupo de trabajo en proyectos aplicados que exija creatividad e intercambio de ideas.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "Al final de tu carrera, ¿qué logro te haría sentir más orgulloso/a?",
+                    a: "Haber desarrollado un proyecto innovador, asumiendo el riesgos y recursos propios.",
+                    b: "Ser reconocido/a por mi trabajo y dedicación, abriendo puertas a becas de posgrado.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "¿Qué es lo más valioso que te llevas de un día en la universidad?",
+                    a: "La sensación de pertenecer a una comunidad, invirtiendo tiempo en construir relaciones.",
+                    b: "Los contactos que hago con personas que pueden ser clave para mi futuro profesional.",
+                    val_a: { x: -1, y: 0 },
+                    val_b: { x: 1, y: 0 }
+                },
+                {
+                    q: "Cuando te encuentras con un trámite administrativo complicado, ¿qué sueles hacer primero?",
+                    a: "Intento resolverlo por mi cuenta, buscando la información en la página web.",
+                    b: "Voy a la oficina correspondiente para que me expliquen el proceso y su solución.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "Te das cuenta de que no entiendes un tema clave para el examen final. ¿Qué haces?",
+                    a: "Dedico varias horas a investigar por mi cuenta. Veo el no entender como un reto personal.",
+                    b: "Organizo un grupo de estudio y buscamos una tutoría para reforzar y practicar ejercicios.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "¿Qué tipo de apoyo preventivo te parece más útil?",
+                    a: "Un taller para mejorar mis hábitos de estudio y de organización.",
+                    b: "Un espacio de escucha y apoyo para manejar la presión académica.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué tipo de orientación prefieres?",
+                    a: "Un mentor que me rete y me impulse a salir de mi zona de confort.",
+                    b: "Un tutor que me dé seguridad y me confirme que voy por buen camino.",
+                    val_a: { x: -1, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "Para el proyecto final el profesor solo dice: \"Sorpréndanme\". ¿Cuál es tu reacción inicial?",
+                    a: "¡Genial! Me encanta proponer y aunque no estén definidos los entregables.",
+                    b: "Uff... preferiría un proyecto con lineamientos claros y entregables definidos.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "Si tienes una idea para mejorar un proceso en la U, ¿qué haces?",
+                    a: "La desarrollo y la presento formalmente, asumiendo el liderazgo y el trabajo extra.",
+                    b: "Comparto mi idea en los canales oficiales, confiando en que la institución la procese.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "Un proyecto en el que trabajaste mucho no da los resultados esperados. ¿Cómo lo ves?",
+                    a: "Como una oportunidad de aprendizaje para entender qué falló y mejorar.",
+                    b: "Como una enseñanza de delimitar riesgos y planear futuros proyectos.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: 1, y: -1 }
+                }
+            ]
+        },
+        {
+            id: "d2",
+            questions: [
+                {
+                    q: "¿Qué tipo de curso prefieres más?",
+                    a: "Uno con un  gran proyecto semestral que me reta a aplicar conocimientos a un caso real.",
+                    b: "Uno con módulos por contenidos, con talleres y evaluaciones que me midan lo aprendido.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Qué profesor consideras que te prepara mejor?",
+                    a: "El que resuelve en clase ejercicios prácticos y asegure que sepas aplicar los conceptos.",
+                    b: "El que te hace entender la teoría y sus implicaciones, y brinda herramientas para aplicarlos.",
+                    val_a: { x: 1, y: -1 },
+                    val_b: { x: -1, y: 1 }
+                },
+                {
+                    q: "¿Cómo prefieres recibir la retroalimentación de un gran proyecto semestral?",
+                    a: "Comentarios puntuales durante el proceso para poder corregir sobre la marcha.",
+                    b: "Una o dos entregas detalladas que me brinde una retroalimentación específica.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "¿Relacionado con una materia, qué situación prefieres?",
+                    a: "Sacar una buena nota sin tanto esfuerzo aún si no hayas aprendido grandes cosas.",
+                    b: "Estudiar mucho y sentir que aprendiste mucho aun si la nota final no sea tan buena.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "¿Qué tipo de conocimiento crees que te servirá más en tu trabajo?",
+                    a: "El dominio de herramientas y procesos prácticos que pueda usar desde el primer día.",
+                    b: "Una base conceptual sólida que me explique el porqué y cómo adaptarme a  los cambios.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "En una entrevista de trabajo, ¿qué preferirías mostrar?",
+                    a: "Un portafolio con proyectos y resultados concretos que he construido.",
+                    b: "Mi capacidad para analizar problemas desde una perspectiva estratégica.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Qué tipo de taller extracurricular te parece más útil?",
+                    a: "Uno para aprender una herramienta de tu carrera y con un certificado al final.",
+                    b: "Uno sobre pensamiento crítico y argumentación con debates abiertos sin nota.",
+                    val_a: { x: 1, y: -1 },
+                    val_b: { x: -1, y: 1 }
+                },
+                {
+                    q: "Si debes unirte a uno de estos dos semilleros, ¿cuál eliges?",
+                    a: "Uno en el que haya que construir una solución, competir en un concurso.",
+                    b: "Uno de discusión sobre temas actuales, ideas innovadoras e implicaciones.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Qué tipo de conversación académica disfrutas más con amigos?",
+                    a: "Discutir cómo aplicar lo visto en clase para resolver un problema del mundo real.",
+                    b: "Debatir  las implicaciones e impactos en la vida cotidiana de un tema visto en clase.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Si buscas ayuda en una tutoría, ¿qué esperas?",
+                    a: "Que me guíen paso a paso para resolver los ejercicios específicos que no entiendo.",
+                    b: "Que me planteen preguntas, me sugieran videos y lecturas para aprender por mi cuenta.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "¿Qué tipo de páginas web usas más para estudiar?",
+                    a: "Aquellas con videos tutoriales que explican un tema de forma clara y secuencial.",
+                    b: "Paginas como foros donde expertos explican y resuelven dudas colaborativamente.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "¿Qué tipo de profesor valoras más a lo largo del tiempo?",
+                    a: "El profesor exigente que te señalo tus errores sin rodeos para forzarte a mejorar.",
+                    b: "El profesor que te acompañó de cerca, te dio confianza y te ofreció una estructura.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "Para ti, ¿qué es innovar en la universidad?",
+                    a: "Crear un prototipo o producto que funcione y resuelva un problema práctico.",
+                    b: "Desarrollar un nuevo modelo intervención que plantee una solución original.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: 1 }
+                },
+                {
+                    q: "¿Cómo organizas tu tiempo de estudio?",
+                    a: "Me gusta tener un plan de estudio detallado con metas diarias y horarios fijos.",
+                    b: "Estudio profundizando en los temas que más me interesan o los mas urgentes.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "Ante un problema sin solución clara, ¿qué haces primero?",
+                    a: "Busco metodologías y casos prácticos para tener una base aplicable.",
+                    b: "Empiezo a experimentar con diferentes enfoques aceptando cometer errores.",
+                    val_a: { x: 1, y: -1 },
+                    val_b: { x: -1, y: 1 }
+                },
+                {
+                    q: "¿Qué tipo de examen final prefieres?",
+                    a: "Uno con preguntas abiertas donde puedes demostrar mi comprensión.",
+                    b: "Uno con preguntas puntuales de lo aprendido y con puntaje definido.",
+                    val_a: { x: -1, y: 1 },
+                    val_b: { x: 1, y: -1 }
+                },
+                {
+                    q: "¿Qué te motiva más a aprender?",
+                    a: "La posibilidad de construir algo con mis propias manos y ver que funciona.",
+                    b: "La satisfacción de comprender a una idea sus alcance y sus implicaciones.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Si un profesor quiere que aprendas de un tema por tu cuenta, ¿qué prefieres?",
+                    a: "Seguir un tutorial específico para aprender una nueva habilidad.",
+                    b: "Experimentar con una herramienta aunque no haya una guía.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "¿Qué tipo de trabajo en grupo prefieres?",
+                    a: "Uno donde los roles y las tareas de cada integrante sean claros y definidos.",
+                    b: "Uno donde el equipo explora el problema en grupo y sin roles definidos.",
+                    val_a: { x: 0, y: -1 },
+                    val_b: { x: 0, y: 1 }
+                },
+                {
+                    q: "¿Qué es más importante para ti en tu carrera?",
+                    a: "Que los objetivos de aprendizaje sean prácticos y las evaluaciones puntuales.",
+                    b: "Que los temas inviten a la exploración de soluciones con informes de resultados.",
+                    val_a: { x: 1, y: -1 },
+                    val_b: { x: -1, y: 1 }
+                }
+            ]
+        },
+        {
+            id: "d3",
+            questions: [
+                {
+                    q: "¿Qué valoras más de un trabajo en grupo?",
+                    a: "La oportunidad de conocer compañeros que podrían ser futuros socios o colegas.",
+                    b: "El apoyo mutuo y la camaradería que surge al resolver un reto académico juntos.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: 1 }
+                },
+                {
+                    q: "Un profesor invita a un externo. ¿Qué te parece más interesante?",
+                    a: "Que sea un alto ejecutivo de una empresa líder para hacer contactos valiosos.",
+                    b: "Que sea un líder social o un artista que inspire una reflexión profunda en la comunidad.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Cuál es tu principal objetivo al asistir a un evento universitario?",
+                    a: "Conversar con profesores o expertos que puedan potenciar mi carrera.",
+                    b: "Relajarme y compartir un buen rato con mi círculo de amigos cercanos.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "¿Qué tipo de programa de mentoría prefieres?",
+                    a: "Uno con profesionales exitosos, enfocado en consejos de networking.",
+                    b: "Uno con egresados exitosos, enfocado en consejos para lograr mi carrera.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Cómo usas tus redes sociales en el contexto universitario?",
+                    a: "Principalmente para construir un perfil profesional.",
+                    b: "Principalmente para mantenerme en contacto con mis amigos.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Qué te motivaría a ser voluntario en un evento de la universidad?",
+                    a: "La posibilidad de conocer a los organizadores y ponentes importantes.",
+                    b: "La oportunidad de colaborar con mis amigos y fortalecer nuestros lazos.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "¿Qué tipo de evento social prefieres?",
+                    a: "Un concierto con toda la facultad, ideal para conocer personas.",
+                    b: "Una reunión pequeña con tu grupo de amigos de siempre.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "Cuando llegas a un lugar concurrido en el campus, ¿qué haces?",
+                    a: "Me muevo entre diferentes grupos participando muchas conversaciones.",
+                    b: "Busco un lugar tranquilo y me siento con las personas que tengo confianza.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué te haría sentir más satisfecho/a?",
+                    a: "Organizar un gran evento que tenga un impacto masivo y sea recordado en la universidad.",
+                    b: "Ser la persona a la que un amigo acude cuando necesita un consejo o apoyo incondicional.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué es más importante para ti en la vida universitaria?",
+                    a: "Construir una red de contactos profesionales, aunque las relaciones no sean profundas.",
+                    b: "Cultivar unas pocas amistades profundas y significativas, aunque mi red sea pequeña.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "Cuando requieres armar un equipo de trabajo ¿Cómo sueles escoger?",
+                    a: "Busco los mas pilos y me pueden aportar ideas y aprendizajes.",
+                    b: "Busco la recomendación de amigos y priorizo las personalidades.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "Si te sientes abrumado/a, ¿qué buscas?",
+                    a: "Un consejo práctico de un mentor o profesional que me ayude a enfocarme.",
+                    b: "El apoyo emocional de mis amigos para desahogarme y sentir acompañado/a.",
+                    val_a: { x: 1, y: -1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "¿Qué tipo de espacio físico valoras más en el campus?",
+                    a: "Zonas de coworking y salas de trabajo que faciliten el trabajo en grupo.",
+                    b: "Zonas de descanso cómodas donde estar con amigos y recargar energías.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué significa \"bienestar\" para ti en la U?",
+                    a: "Tener las herramientas y contactos para sentir seguridad y confianza en mi futuro profesional.",
+                    b: "Tener un equilibrio saludable entre lo académico y lo personal, con una red de apoyo emocional.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Cómo prefieres enterarte de las actividades de la U?",
+                    a: "A través de boletines oficiales o correos para filtrar las oportunidades más relevantes.",
+                    b: "A través de los grupos de WhatsApp con amigos y las conversaciones en los pasillos.",
+                    val_a: { x: 1, y: -1 },
+                    val_b: { x: -1, y: -1 }
+                },
+                {
+                    q: "Al iniciar cada semestre, ¿cuál es tu principal mentalidad?",
+                    a: "Aprovecharé para conocer personas, participar en eventos y ampliar mis experiencias.",
+                    b: "Vengo a lo mío: me enfocaré en mis clases y en estudiar, las relaciones se van armando.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué tipo de liderazgo te resulta más natural?",
+                    a: "Tomar la iniciativa en proyectos, organizar equipos y presentar los resultados.",
+                    b: "Apoyar al equipo desde un rol de gestión, asegurando que todos se sientan incluidos.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "Es la final del torneo de voleibol pero tengo un quiz en clase. ¿Qué haces?",
+                    a: "Asisto a clase y confío en mi equipo de voleibol.",
+                    b: "Juego la final y asumo la falla en el quiz.",
+                    val_a: { x: 1, y: 0 },
+                    val_b: { x: -1, y: 0 }
+                },
+                {
+                    q: "¿Cuál es tu postura frente a la política estudiantil (representantes, consejos, etc.)?",
+                    a: "Me involucro. Es una oportunidad para generar impacto y establecer relaciones.",
+                    b: "No me involucro, pero valoro que otros lo hagan. Prefiero enfocarme en mis asuntos.",
+                    val_a: { x: 1, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                },
+                {
+                    q: "¿Qué define mejor tu forma de socializar?",
+                    a: "Soy como un \"explorador\": me gusta conocer personas y diferentes ambientes sociales.",
+                    b: "Soy como un \"pilar\": prefiero profundizar y enriquecer las relaciones que ya tengo.",
+                    val_a: { x: 0, y: 1 },
+                    val_b: { x: 0, y: -1 }
+                }
+            ]
+        }
+    ],
+    answers: {}
+};
 
         document.addEventListener('DOMContentLoaded', () => {
             let currentQuestionIndex = 0;
@@ -272,6 +700,7 @@
     </script>
 </body>
 </html>
+
 
 
 
