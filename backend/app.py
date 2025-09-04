@@ -78,9 +78,7 @@ def guardar_respuestas():
     if not id_sesion or not respuestas:
         return jsonify({'error': 'Faltan datos'}), 400
 
-    # ---- INICIO DE LA VALIDACIÓN DEL BACKEND ----
-    
-    # 1. VALIDACIÓN DE NÚMERO DE PREGUNTAS
+    # --- VALIDACIÓN AÑADIDA 1: NÚMERO DE RESPUESTAS ---
     # Se asegura de que el test esté completo.
     if len(respuestas) != 60:
         return jsonify({'error': f'Número de respuestas incorrecto. Se esperaban 60 y se recibieron {len(respuestas)}.'}), 400
@@ -91,14 +89,14 @@ def guardar_respuestas():
     
     cursor = conn.cursor()
     try:
-        # 2. VALIDACIÓN DE ENVÍOS DUPLICADOS
+        # --- VALIDACIÓN AÑADIDA 2: PREVENIR ENVÍOS DUPLICADOS ---
         # Revisa si esta sesión ya fue marcada como 'finalizado'.
         cursor.execute("SELECT estado FROM sesiones_test WHERE id_sesion = %s", (id_sesion,))
         sesion = cursor.fetchone()
         if sesion and sesion[0] == 'finalizado':
             return jsonify({'error': 'Este test ya ha sido finalizado y no puede ser enviado de nuevo.'}), 409 # 409 Conflict
 
-        # ---- FIN DE LA VALIDACIÓN DEL BACKEND ----
+        # --- FIN DE LAS VALIDACIONES ---
 
         # Insertar todas las respuestas
         for r in respuestas:

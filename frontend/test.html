@@ -13,8 +13,19 @@
         body::before { content: ''; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle at 20% 80%, rgba(120, 119, 198, 0.3) 0%, transparent 50%), radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%), radial-gradient(circle at 40% 40%, rgba(59, 130, 246, 0.2) 0%, transparent 50%); pointer-events: none; z-index: -1; }
         @keyframes gradientShift { 0% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } 100% { background-position: 0% 50%; } }
         .glass-effect { background: rgba(255, 255, 255, 0.95); backdrop-filter: blur(10px); border: 1px solid rgba(255, 255, 255, 0.2); }
+        
+        /* ESTILOS AÑADIDOS PARA LAS NUEVAS PANTALLAS Y TRANSICIONES */
         #questionContainer, .overlay { transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out; }
-        .question-card, .section-header, .intro-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        .intro-card { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeOutDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
+        .fade-in-up { animation: fadeInUp 0.5s ease-in-out forwards; }
+        .fade-out-down { animation: fadeOutDown 0.5s ease-in-out forwards; }
+        /* FIN DE ESTILOS AÑADIDOS */
+        
+        .question-card, .section-header { background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(15px); border: 1px solid rgba(255, 255, 255, 0.3); }
         .question-changing { opacity: 0; transform: scale(0.95); }
         .option-btn { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); border: 2px solid rgba(59, 130, 246, 0.2); }
         .option-btn:not(:disabled):hover { transform: translateY(-3px); box-shadow: 0 15px 30px rgba(59, 130, 246, 0.2); border-color: #3B82F6; }
@@ -25,12 +36,6 @@
         .gradient-text { background: linear-gradient(135deg, #1E40AF, #7C3AED); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
         .submit-btn-ready { background: linear-gradient(135deg, #10B981, #059669); animation: readyPulse 2s infinite; }
         @keyframes readyPulse { 0%, 100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); } 50% { box-shadow: 0 0 0 10px rgba(16, 185, 129, 0); } }
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes fadeOutDown { from { opacity: 1; transform: translateY(0); } to { opacity: 0; transform: translateY(20px); } }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .fade-in { animation: fadeIn 0.5s ease-in-out forwards; }
-        .fade-in-up { animation: fadeInUp 0.5s ease-in-out forwards; }
-        .fade-out-down { animation: fadeOutDown 0.5s ease-in-out forwards; }
     </style>
 </head>
 <body class="text-gray-800">
@@ -59,6 +64,7 @@
     </header>
 
     <main class="container mx-auto p-4 md:p-8 relative">
+
         <div id="welcome-overlay" class="overlay fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-30 p-4">
             <div class="intro-card text-center p-8 md:p-12 rounded-2xl shadow-2xl max-w-2xl mx-auto fade-in-up">
                 <h2 class="text-3xl md:text-4xl font-extrabold gradient-text mb-4">¡Estás listo/a para comenzar!</h2>
@@ -77,7 +83,7 @@
         </div>
         
         <div id="questionContainer" class="max-w-4xl mx-auto" style="display: none;">
-            <div class="section-header p-6 md:p-8 rounded-2xl shadow-xl mb-6 md:mb-8">
+            <div id="section-header" class="section-header p-6 md:p-8 rounded-2xl shadow-xl mb-6 md:mb-8">
                 <div class="flex flex-col sm:flex-row justify-between items-center text-center sm:text-left gap-4">
                     <div class="flex items-center space-x-4">
                         <div id="sectionIcon" class="w-12 h-12 md:w-16 md:h-16 rounded-2xl flex items-center justify-center flex-shrink-0"></div>
@@ -117,10 +123,8 @@
     </main>
 
     <script>
-        // ---- INICIO DE LA LÓGICA DE PROTECCIÓN ----
-        // 1. VARIABLE SEMÁFORO
+        // LÓGICA AÑADIDA: VARIABLE SEMÁFORO PARA PROTECCIÓN DE CLICS
         let isProcessing = false;
-        // ---- FIN DE LA LÓGICA DE PROTECCIÓN
         // --- DATA STORE ---
 const surveyData = {
     diagrams: [
@@ -563,26 +567,10 @@ const surveyData = {
     answers: {}
 };
 
-document.addEventListener('DOMContentLoaded', () => {
-            // --- INICIO DE LA LÓGICA DE PROTECCIÓN ---
-            // 2. OBTENER REFERENCIAS A LOS BOTONES
-            const optA = document.getElementById('optionA');
-            const optB = document.getElementById('optionB');
-            const submitBtn = document.getElementById('submitBtn');
-            // ---- FIN DE LA LÓGICA DE PROTECCIÓN ----
-
+         document.addEventListener('DOMContentLoaded', () => {
             let currentQuestionIndex = 0;
             let allQuestions = [];
             
-            // ... [resto de la inicialización]
-            const qContainer = document.getElementById('questionContainer');
-            // ... [y demás elementos]
-            const welcomeOverlay = document.getElementById('welcome-overlay');
-            const startTestBtn = document.getElementById('start-test-btn');
-            const sectionIntro = document.getElementById('section-intro');
-            const continueBtn = document.getElementById('continue-btn');
-
-
             surveyData.diagrams.forEach((diagram, diagramIndex) => {
                 diagram.questions.forEach((question, questionIndex) => {
                     allQuestions.push({
@@ -594,9 +582,14 @@ document.addEventListener('DOMContentLoaded', () => {
                 });
             });
 
+            // DOM Elements
+            const qContainer = document.getElementById('questionContainer');
             const qText = document.getElementById('questionText');
+            const optA = document.getElementById('optionA');
+            const optB = document.getElementById('optionB');
             const optAText = document.getElementById('optionAText');
             const optBText = document.getElementById('optionBText');
+            const submitBtn = document.getElementById('submitBtn');
             const progressBar = document.getElementById('progressBar');
             const progressText = document.getElementById('progressText');
             const currentNum = document.getElementById('currentQuestionNum');
@@ -606,20 +599,11 @@ document.addEventListener('DOMContentLoaded', () => {
             const secCounter = document.getElementById('sectionCounter');
             const finalSubmit = document.getElementById('finalSubmit');
 
-             const sections = [
+            const sections = [
                 { title: 'Tu ADN Estudiantil', description: 'Tu mentalidad y cómo abordas la experiencia universitaria', icon: '🧬', gradient: 'from-blue-500 to-indigo-600', counterClass: 'bg-blue-100', textClass: 'text-blue-700' },
                 { title: 'Tu Estilo de Aprendizaje', description: 'Cómo prefieres procesar y aplicar el conocimiento', icon: '✍️', gradient: 'from-purple-500 to-pink-600', counterClass: 'bg-purple-100', textClass: 'text-purple-700' },
                 { title: 'Tu Forma de Conectar', description: 'Cómo te relacionas con otros en la universidad', icon: '🤝', gradient: 'from-green-500 to-teal-600', counterClass: 'bg-green-100', textClass: 'text-green-700' }
             ];
-
-            function showSectionIntro(diagramIndex) {
-                const section = sections[diagramIndex];
-                document.getElementById('intro-section-icon').innerHTML = `<span class="text-5xl">${section.icon}</span>`;
-                document.getElementById('intro-section-title').textContent = section.title;
-                document.getElementById('intro-section-description').textContent = section.description;
-                sectionIntro.style.display = 'flex';
-                sectionIntro.querySelector('.intro-card').classList.add('fade-in-up');
-            }
 
             function updateUI() {
                 const question = allQuestions[currentQuestionIndex];
@@ -646,88 +630,48 @@ document.addEventListener('DOMContentLoaded', () => {
                 optB.classList.remove('selected');
             }
 
-            // ---- INICIO DE LA LÓGICA DE PROTECCIÓN (FUNCIÓN MODIFICADA) ----
             function selectOption(value) {
-                // 3. VERIFICACIÓN INICIAL DEL SEMÁFORO
-                if (isProcessing) return;
-
-                // 4. BLOQUEO Y FEEDBACK VISUAL
-                isProcessing = true;
-                optA.disabled = true;
-                optB.disabled = true;
-                optA.classList.add('opacity-50', 'cursor-not-allowed');
-                optB.classList.add('opacity-50', 'cursor-not-allowed');
-                
+                surveyData.answers[allQuestions[currentQuestionIndex].questionId] = value;
                 const selectedBtn = value === 'a' ? optA : optB;
                 selectedBtn.classList.add('selected');
-                surveyData.answers[allQuestions[currentQuestionIndex].questionId] = value;
 
-                // 5. DELAY CONTROLADO
                 setTimeout(() => {
-                    const currentQuestion = allQuestions[currentQuestionIndex];
                     if (currentQuestionIndex < allQuestions.length - 1) {
-                        const nextQuestion = allQuestions[currentQuestionIndex + 1];
-
-                        // Lógica para mostrar la transición de sección
-                        if (nextQuestion.diagramIndex !== currentQuestion.diagramIndex) {
-                            qContainer.classList.add('fade-out-down');
-                            setTimeout(() => { 
-                                qContainer.style.display = 'none';
-                                qContainer.classList.remove('fade-out-down');
-                                showSectionIntro(nextQuestion.diagramIndex);
-                            }, 500);
-                        } else {
-                            qContainer.classList.add('question-changing');
-                            setTimeout(() => {
-                                currentQuestionIndex++;
-                                updateUI();
-                                qContainer.classList.remove('question-changing');
-                            }, 400);
-                        }
+                        qContainer.classList.add('question-changing');
+                        setTimeout(() => {
+                            currentQuestionIndex++;
+                            updateUI();
+                            qContainer.classList.remove('question-changing');
+                        }, 400);
                     } else {
-                        // Todas las preguntas contestadas
+                        // All questions answered
                         progressBar.style.width = `100%`;
                         progressText.textContent = `100% completado`;
                         qContainer.classList.add('question-changing');
                         setTimeout(() => {
                             document.getElementById('questionCard').style.display = 'none';
-                            document.getElementById('section-header').style.display = 'none';
                             finalSubmit.style.display = 'block';
                             qContainer.classList.remove('question-changing');
                         }, 400);
                     }
-                    
-                    // 6. DESBLOQUEO (se ejecuta después del delay)
-                    isProcessing = false;
-                    optA.disabled = false;
-                    optB.disabled = false;
-                    optA.classList.remove('opacity-50', 'cursor-not-allowed');
-                    optB.classList.remove('opacity-50', 'cursor-not-allowed');
-
-                }, 500); // Medio segundo de delay
+                }, 300);
             }
-            // ---- FIN DE LA LÓGICA DE PROTECCIÓN ----
 
             submitBtn.addEventListener('click', async () => {
-                // ---- INICIO DE LA LÓGICA DE PROTECCIÓN ----
-                submitBtn.disabled = true;
-                submitBtn.textContent = 'Enviando...';
-                submitBtn.classList.remove('submit-btn-ready');
-                // ---- FIN DE LA LÓGICA DE PROTECCIÓN ----
-
+                // 1. Obtenemos el id_sesion que guardamos antes
                 const id_sesion = sessionStorage.getItem('id_sesion');
                 if (!id_sesion) {
                     alert('Error: No se encontró una sesión activa. Por favor, regresa al inicio.');
-                    // Re-habilitar el botón en caso de error temprano
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = '¡Descubre tu perfil!';
-                    submitBtn.classList.add('submit-btn-ready');
                     return;
                 }
+
+                // 2. Preparamos las respuestas para enviar
                 const respuestasParaEnviar = Object.keys(surveyData.answers).map(key => {
                     return { id_pregunta: key, respuesta: surveyData.answers[key] };
                 });
+
                 try {
+                    // 3. Enviamos las respuestas a la API de Python
                     const response = await fetch('https://api-encuesta-uniminuto-v1-e5f2dva8eydqggcm.chilecentral-01.azurewebsites.net/api/guardar-respuestas', {
                         method: 'POST',
                         headers: { 'Content-Type': 'application/json' },
@@ -735,9 +679,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
                     
                     if (!response.ok) {
-                        const errorData = await response.json();
-                        throw new Error('Error del servidor: ' + (errorData.error || 'Error desconocido'));
+                    const errorData = await response.json(); // Leer el JSON del error
+                    throw new Error('Error del servidor: ' + errorData.error); // Mostrar el error real
                     }
+
+                    // 4. Calculamos los resultados para mostrarlos AL ESTUDIANTE (esto no va a la BD)
                     const results = surveyData.diagrams.map(diagram => {
                         let scoreX = 0;
                         let scoreY = 0;
@@ -754,45 +700,30 @@ document.addEventListener('DOMContentLoaded', () => {
                         });
                         return { diagramId: diagram.id, scoreX, scoreY };
                     });
-                    localStorage.setItem('surveyResults', JSON.stringify(results));
+                    localStorage.setItem('surveyResults', JSON.stringify(results)); // Usamos localStorage para la última página
+
+                    // 5. Redirigimos a la página de resultados
                     window.location.href = 'resultados.html';
+
                 } catch (error) {
                     console.error('Error al guardar respuestas:', error);
-                    alert('No se pudieron guardar tus respuestas. Error: ' + error.message);
-
-                    // ---- INICIO DE LA LÓGICA DE PROTECCIÓN (EN CASO DE ERROR) ----
-                    submitBtn.disabled = false;
-                    submitBtn.textContent = '¡Descubre tu perfil!';
-                    submitBtn.classList.add('submit-btn-ready');
-                    // ---- FIN DE LA LÓGICA DE PROTECCIÓN ----
+                    alert('No se pudieron guardar tus respuestas. Error detallado: ' + error.message);
                 }
             });
 
             optA.addEventListener('click', () => selectOption('a'));
             optB.addEventListener('click', () => selectOption('b'));
 
-            startTestBtn.addEventListener('click', () => {
-                welcomeOverlay.classList.add('fade-out-down');
-                setTimeout(() => {
-                    welcomeOverlay.style.display = 'none';
-                    showSectionIntro(0);
-                }, 500);
-            });
-
-            continueBtn.addEventListener('click', () => {
-                sectionIntro.classList.remove('fade-in-up');
-                sectionIntro.classList.add('fade-out-down');
-                setTimeout(() => {
-                    sectionIntro.style.display = 'none';
-                    sectionIntro.classList.remove('fade-out-down');
-                    qContainer.style.display = 'block';
-                    qContainer.classList.add('fade-in');
-                }, 500);
-            });
-            
-            if (!sessionStorage.getItem('id_sesion')) {
+            // Initial Load
+            if (!sessionStorage.getItem('id_sesion')) { // Verificamos id_sesion en lugar de studentInfo
                 alert('No se encontró una sesión activa. Redirigiendo al registro.');
                 window.location.href = 'index.html';
+            } else {
+                updateUI();
+                setTimeout(() => {
+                    qContainer.style.opacity = '1';
+                    qContainer.style.transform = 'translateY(0)';
+                }, 100);
             }
         });
     </script>
