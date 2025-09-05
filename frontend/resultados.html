@@ -103,7 +103,7 @@
             ];
 
             const resultsString = localStorage.getItem('surveyResults');
-            const studentInfoString = sessionStorage.getItem('studentInfo'); // Cambiado a sessionStorage
+            const studentInfoString = sessionStorage.getItem('studentInfo'); 
             
             if(studentInfoString) {
                 const studentInfo = JSON.parse(studentInfoString);
@@ -115,6 +115,9 @@
                 document.getElementById('error-container').style.display = 'block';
                 return;
             }
+
+            // --- CAMBIO APLICADO ---
+            sessionStorage.removeItem('id_sesion'); // Invalida la sesión para que no se pueda volver atrás al test.
 
             const results = JSON.parse(resultsString);
             
